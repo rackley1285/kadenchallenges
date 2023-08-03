@@ -1,43 +1,72 @@
 package com.kaden.challenges;
 
-import java.util.Objects;
+
 import java.util.Scanner;
 
 public class NumberGuesser {
     public static void main(String[] args) {
 
-        System.out.println("Thanks for playing NumberGuesser! Pick your favorite number from 0 to 100 and remember it. I will give you my best guess and you tell me 'yes' I'm right! If I'm wrong, tell me I'm too high by typing 'high' or too low by typing 'low'. I'm sure I'll get it eventually! Type 'go' when you have chosen your number!");
+        System.out.println("""
+                Hi, I'm GameFriend! Thanks for choosing NumberGuesser!
+                In this game you need to think of your favorite number from 0 to 100. I'll be trying to guess it, so remember what it is!
+                When I make a guess, let me know how I did by saying 'lower' if I need to guess lower, 'higher' if I need to guess higher, or 'yes' if I'm spot-on!.
+                I'm sure I'll get it eventually! If you change your mind about playing you can just say 'goodbye' and we'll play some other time.
+                
+                Type 'go' when you have chosen your number!""");
 
-        Scanner feedback = new Scanner(System.in);
-        double firstGuess = (double)Math.round(Math.random()*100)/100;
-        int guess = (int) (firstGuess * 100);
+        Scanner input = new Scanner(System.in);
+        String response = input.nextLine().toLowerCase();
 
-        if (Objects.equals(feedback.nextLine(), "go")) System.out.println("Great! Is your number " + guess + "?");
-
+        int lastGuess = 101;
+        int guess;
         int floor = 0;
         int ceiling = 100;
+        boolean end = false;
 
-        String isRight = feedback.nextLine();
+        while (!end) {
 
-        while (!Objects.equals(isRight, "yes")){
+            if (response.equals("go")) {
+                System.out.println("Great!");
 
-            switch (isRight){
-                case "low" -> floor = guess;
-                case "high" -> ceiling = guess;
-            };
+                do {
 
-            guess = floor + (ceiling - floor) / 2;
-            System.out.println("Is your number " + guess + "?");
+                    int range = ceiling - floor;
 
-            isRight = feedback.nextLine();
+                    guess = (int) Math.round(Math.random() * range / 2) + floor + range / 4;
+                    if (guess == lastGuess) {
+                        guess++;
+                    }
+                    System.out.println("Is your number " + guess + "?");
+                    response = input.nextLine().toLowerCase();
 
+                    if ((response.equals("lower") && guess == floor) || (response.equals("higher") && guess == ceiling)) {
+                        System.out.println("I think you're cheating! I don't want to play with a cheater!");
+                        end = true;
+
+                    } else if (response.equals("yes")) {
+                        System.out.println("Awesome! Thanks for playing!");
+                        end = true;
+
+                    } else {
+                        lastGuess = guess;
+                        switch (response) {
+                            case "higher" -> floor = guess;
+                            case "lower" -> ceiling = guess - 1;
+                        }
+
+                    }
+                } while (!end);
+
+            } else if (response.equals("goodbye")) {
+                end = true;
+
+            } else {
+                    System.out.println("Sorry, I can only start if you say 'go'! I don't know many words...");
+                    response = input.nextLine().toLowerCase();
+            }
         }
 
-        System.out.println("Awesome! Thanks for playing!");
+    }
 
-
-
-
-}
 
 }
