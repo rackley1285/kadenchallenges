@@ -43,18 +43,27 @@ public class NumberGuesser {
                         System.out.println("I think you're cheating! I don't want to play with a cheater!");
                         end = true;
 
-                    } else if (response.equals("yes")) {
-                        System.out.println("Awesome! Thanks for playing!");
-                        end = true;
-
                     } else {
-                        lastGuess = guess;
                         switch (response) {
-                            case "higher" -> floor = guess;
-                            case "lower" -> ceiling = guess - 1;
+                            case "yes" -> {
+                                System.out.println("Awesome! Thanks for playing!");
+                                end = true;
+                            }
+                            case "goodbye" -> end = true;
+                            case "higher" -> {
+                                lastGuess = guess;
+                                floor = guess;
+                            }
+                            case "lower" -> {
+                                lastGuess = guess;
+                                ceiling = guess - 1;
+                            }
+                            default -> System.out.println("Huh? I don't know what that means. Tell me if my guess needs to be 'higher' or 'lower' as simply as possible!");
+
                         }
 
                     }
+
                 } while (!end);
 
             } else if (response.equals("goodbye")) {
@@ -65,7 +74,7 @@ public class NumberGuesser {
                     response = input.nextLine().toLowerCase();
             }
         }
-
+        System.out.println("Goodbye!");
     }
 
 
