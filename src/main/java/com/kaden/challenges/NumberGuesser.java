@@ -70,7 +70,7 @@ public class NumberGuesser {
             guess = random.nextInt(max - min) + min;
 
             //Ask the user about the new guess
-            System.out.println("If your number " + guess + "?");
+            System.out.println("Is your number " + guess + "?");
         }
 
         System.out.println("The game has ended");
