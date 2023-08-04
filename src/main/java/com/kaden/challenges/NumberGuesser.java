@@ -48,7 +48,7 @@ public class NumberGuesser {
             }
 
             //Make sure the player isn't cheating and if they are quit the game
-            if ((response.equals("higher") && guess <= min) || (response.equals("lower") && guess >= max)) {
+            if ((response.equals("higher") && guess < min) || (response.equals("lower") && guess > max)) {
                 System.out.println("I think you're cheating! I don't want to play with a cheater!");
                 break;
             }
