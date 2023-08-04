@@ -44,6 +44,7 @@ public class NumberGuesser {
             //Validate inputs
             if (!allowedResponses.contains(response)) {
                 System.out.println("Huh? I don't know what that means. Tell me if my guess needs to be 'higher' or 'lower' as simply as possible!");
+                continue;
             }
 
             //Make sure the player isn't cheating and if they are quit the game
